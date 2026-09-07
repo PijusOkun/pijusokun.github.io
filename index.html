@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       YOUR WEBSITE TAB TITLE
+       Change the text between <title> and </title>
+       ═══════════════════════════════════════════════════════════════════ -->
+  <title>Pijus Okun | Director · Writer · Producer · Actor</title>
+
+  <!-- Fonts – you don't need to touch this -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       COLOUR PALETTE  — change these 7 values to restyle the whole site
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      --bg:           #f1fbf1;   /* page background */
+      --bg-card:      #e5f6e5;   /* card / input background */
+      --ink:          #1C2B1C;   /* main text colour */
+      --ink-muted:    #5A7060;   /* secondary text colour */
+      --accent:       #3A7D44;   /* green highlight colour */
+      --accent-light: #D6EDD9;   /* pale green for badges */
+      --border:       #C8DEC9;   /* line / border colour */
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Page wrapper ── */
+    .page { max-width: 700px; margin: 0 auto; padding: 72px 36px 120px; }
+
+    /* ── Navigation bar ── */
+    nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 88px; }
+    .nav-logo { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.05rem; color: var(--ink); cursor: pointer; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--ink-muted); text-decoration: none; cursor: pointer; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* ── View switching (shows/hides pages) ── */
+    .view { display: none; }
+    .view.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* ── "Open to opportunities" badge ── */
+    .badge { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 4px 13px 4px 9px; border-radius: 999px; margin-bottom: 30px; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 2.2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* ── Hero section ── */
+    .hero { margin-bottom: 80px; }
+    .hero h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(2.8rem, 7vw, 4rem); line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 22px; }
+    .hero-bio { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.8; max-width: 540px; margin-bottom: 36px; }
+
+    /* ── Button pills (Email me / About me / etc.) ── */
+    .links { display: flex; flex-wrap: wrap; gap: 9px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-decoration: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 14px; background: transparent; cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+    .pill:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+    .pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ── Section heading ── */
+    .sh { font-size: 0.72rem; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.07em; text-transform: uppercase; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+
+    /* ── Project / Work cards ── */
+    .project { display: block; text-decoration: none; color: inherit; padding: 26px 0; border-bottom: 1px solid var(--border); position: relative; transition: padding-left 0.2s ease; }
+    .project::after { content: ''; position: absolute; left: -18px; top: 0; bottom: 0; width: 3px; background: var(--accent); border-radius: 0 3px 3px 0; transform: scaleY(0); transform-origin: bottom; transition: transform 0.22s ease; }
+    .project:hover { padding-left: 14px; }
+    .project:hover::after { transform: scaleY(1); }
+    .proj-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .proj-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.2rem; color: var(--ink); }
+    .proj-tag { font-size: 0.7rem; font-weight: 500; color: var(--ink-muted); background: var(--bg-card); border: 1px solid var(--border); padding: 3px 9px; border-radius: 5px; white-space: nowrap; margin-top: 3px; flex-shrink: 0; }
+    .proj-desc { font-size: 0.925rem; color: var(--ink-muted); line-height: 1.7; max-width: 510px; margin-bottom: 10px; }
+    .proj-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .proj-link-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 0.78rem; font-weight: 500; color: var(--accent); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; background: var(--bg-card); transition: background 0.15s, border-color 0.15s; }
+    .proj-link-btn:hover { background: var(--accent-light); border-color: var(--accent); }
+    .proj-link-btn svg { width: 11px; height: 11px; }
+
+    /* ── "Coming soon" placeholder ── */
+    .coming-soon { padding: 56px 0; text-align: center; }
+    .coming-soon-icon { font-size: 2rem; margin-bottom: 16px; }
+    .coming-soon h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 10px; }
+    .coming-soon p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.7; max-width: 360px; margin: 0 auto; }
+
+    /* ── About page: profile card ── */
+    .profile-card { display: flex; align-items: center; gap: 28px; margin-bottom: 40px; }
+    .avatar-circle { width: 96px; height: 96px; border-radius: 50%; background: var(--accent-light); border: 2.5px solid var(--accent); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .avatar-initials { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.9rem; color: var(--accent); user-select: none; }
+    .avatar-img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--accent); flex-shrink: 0; }
+    .profile-text h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 4px; }
+    .profile-text .role { font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+    .profile-text .location { font-size: 0.82rem; color: var(--ink-muted); display: flex; align-items: center; gap: 5px; }
+    .profile-text .location svg { width: 12px; height: 12px; }
+
+    /* ── About bio paragraphs ── */
+    .about-bio { font-size: 1rem; color: var(--ink-muted); line-height: 1.85; max-width: 580px; margin-bottom: 48px; }
+    .about-bio p + p { margin-top: 16px; }
+
+    /* ── Resume sections ── */
+    .resume { display: flex; flex-direction: column; gap: 52px; }
+    .entry { padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .entry:last-child { border-bottom: none; }
+    .entry-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 4px; }
+    .entry-title { font-size: 0.975rem; font-weight: 500; color: var(--ink); }
+    .entry-date { font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .entry-sub { font-size: 0.85rem; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .entry-desc { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; }
+    .entry-desc ul { padding-left: 16px; }
+    .entry-desc li { margin-bottom: 4px; }
+
+    /* ── Skills grid ── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 20px; }
+    .skill-tag { font-size: 0.82rem; font-weight: 500; color: var(--accent); background: var(--accent-light); border: 1px solid var(--border); padding: 5px 13px; border-radius: 6px; }
+
+    /* ── Extracurricular items ── */
+    .extra-item { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .extra-item:last-child { border-bottom: none; }
+    .extra-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .extra-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .extra-title { font-size: 0.975rem; font-weight: 500; color: var(--ink); }
+    .extra-meta { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 6px; padding-left: 18px; }
+    .extra-desc { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.7; padding-left: 18px; }
+
+    /* ── Contact form ── */
+    .contact-section h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .contact-section .sub { font-size: 1rem; color: var(--ink-muted); line-height: 1.75; max-width: 480px; margin-bottom: 44px; }
+    .form { display: flex; flex-direction: column; gap: 20px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    label { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+    input, textarea { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--ink); background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 9px; padding: 12px 16px; width: 100%; outline: none; resize: vertical; transition: border-color 0.15s, box-shadow 0.15s; }
+    input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+    textarea { min-height: 140px; }
+    .send-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; background: var(--accent); border: none; border-radius: 9px; padding: 13px 24px; cursor: pointer; align-self: flex-start; transition: background 0.15s; }
+    .send-btn:hover { background: #2f6637; }
+    .form-note { font-size: 0.8rem; color: var(--ink-muted); margin-top: 4px; }
+    .confirm { display: none; flex-direction: column; align-items: flex-start; gap: 12px; padding: 28px; background: var(--accent-light); border: 1.5px solid var(--border); border-radius: 12px; margin-top: 24px; }
+    .confirm.show { display: flex; }
+    .confirm-icon { font-size: 1.6rem; }
+    .confirm h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); }
+    .confirm p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.65; }
+    .also { margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .also .sh { margin-bottom: 20px; }
+    .also-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ── Footer ── */
+    footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--ink-muted); }
+
+    /* ── Responsive (mobile) ── */
+    @media (max-width: 520px) {
+      .page { padding: 48px 22px 80px; }
+      nav { margin-bottom: 60px; }
+      .profile-card { flex-direction: column; align-items: flex-start; gap: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .badge-dot { animation: none; }
+      .project, .project::after, .pill, input, textarea, .send-btn { transition: none; }
+      .view.active { animation: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION BAR
+       The "PO." logo and the four nav links.
+       To rename a link: change the text between > and </a>
+       ═══════════════════════════════════════════════════════════════════ -->
+  <nav>
+    <span class="nav-logo" onclick="showView('home')">PO.</span>
+    <div class="nav-links">
+      <a onclick="showView('home')"    class="active" id="nav-home">Home</a>
+      <a onclick="showView('about')"   id="nav-about">About</a>
+      <a onclick="showView('works')"   id="nav-works">Works</a>
+      <a onclick="showView('contact')" id="nav-contact">Contact</a>
+    </div>
+  </nav>
+
+
+  <!-- ╔═════════════════════════════════════════════════════════════════╗
+       ║                        HOME PAGE                               ║
+       ╚═════════════════════════════════════════════════════════════════╝ -->
+  <div class="view active" id="view-home">
+    <section class="hero">
+
+      <!-- Small badge at the top -->
+      <!-- To change the badge text, edit between the last > and </div> below -->
+      <div class="badge"><span class="badge-dot"></span> Open to opportunities</div>
+
+      <!-- ── YOUR NAME & TAGLINE ────────────────────────────────────── -->
+      <h1>Hello! <br>I'm Pijus.</h1>
+
+      <!-- ── YOUR ONE-PARAGRAPH BIO ───────────────────────────────── -->
+      <p class="hero-bio">
+        I'm a passionate filmmaker, leader, and storyteller based in London,
+        dedicated to creating meaningful and engaging work across writing,
+        directing, producing, and acting. I thrive in collaborative
+        environments and bring ambition, creativity, and a strong sense of
+        purpose to every project I take on.
+      </p>
+
+      <!-- ── QUICK-ACTION BUTTONS ─────────────────────────────────── -->
+      <!-- To change your email address: replace both Pijusokun@gmail.com below -->
+      <div class="links">
+        <a class="pill" href="mailto:Pijusokun@gmail.com">
+          <!-- envelope icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email me
+        </a>
+        <span class="pill" onclick="showView('about')">
+          <!-- person icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          About me
+        </span>
+        <span class="pill" onclick="showView('contact')">
+          <!-- chat bubble icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Get in touch
+        </span>
+      </div>
+    </section>
+
+    <!-- ── "WHAT I DO" SECTION ──────────────────────────────────────── -->
+    <!-- These are the two overview cards on the home page.
+         They are NOT clickable links – just for display. -->
+    <section>
+      <div class="sh">What I do</div>
+
+      <div class="project" style="cursor:default;">
+        <div class="proj-row">
+          <span class="proj-name">Film &amp; Storytelling</span>
+          <span class="proj-tag">Creative</span>
+        </div>
+        <p class="proj-desc">I write, direct, produce and act — drawn to projects with a point of view and stories that leave people thinking long after the credits roll.</p>
+      </div>
+
+      <div class="project" style="cursor:default;">
+        <div class="proj-row">
+          <span class="proj-name">Leadership &amp; Advocacy</span>
+          <span class="proj-tag">Impact</span>
+        </div>
+        <p class="proj-desc">From Head Boy to UN Ambassador to Westminster, I've spent years learning how to represent people, drive change, and communicate with purpose.</p>
+      </div>
+
+    </section>
+
+    <footer>© 2026 Pijus Okun</footer>
+  </div><!-- end #view-home -->
+
+
+  <!-- ╔═════════════════════════════════════════════════════════════════╗
+       ║                       ABOUT PAGE                               ║
+       ╚═════════════════════════════════════════════════════════════════╝ -->
+  <div class="view" id="view-about">
+
+    <!-- ── PROFILE CARD ─────────────────────────────────────────────── -->
+    <!-- RIGHT NOW it shows your initials "PO" in a circle.
+         When you have a photo ready:
+           1. Save it as  photo.jpg  in the SAME folder as this file
+           2. Delete the 4 lines with "avatar-circle" and "avatar-initials"
+           3. Uncomment (remove the  and  around) the <img> line below -->
+    <div class="profile-card">
+      <div class="avatar-circle">
+        <span class="avatar-initials">PO</span>
+      </div>
+      <!-- ↓ Uncomment this when you have a photo: -->
+      <!-- <img src="photo.jpg" alt="Pijus Okun" class="avatar-img"> -->
+
+      <div class="profile-text">
+        <!-- Your name -->
+        <h2>Pijus Okun</h2>
+        <!-- Your roles (shown in green) -->
+        <div class="role">Director · Writer · Producer · Actor</div>
+        <!-- Your location -->
+        <div class="location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          London, UK
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BIO PARAGRAPHS ─────────────────────────────────────────────
+         Add or remove <p>...</p> blocks to add or remove paragraphs.
+         ──────────────────────────────────────────────────────────────── -->
+    <div class="about-bio">
+      <p>I'm an aspiring director, writer, producer and actor with a passion for stories that actually mean something. I'm drawn to projects with a point of view — films and creative work that leave people thinking long after the credits roll.</p>
+      <p>But filmmaking is only part of who I am. I've spent years developing as a leader — representing my peers, advocating for real issues on national platforms, and learning how to bring people together around a shared goal. That ability to lead, listen, and communicate is something I carry into every creative project I take on.</p>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         RESUME SECTIONS
+         ════════════════════════════════════════════════════════════════ -->
+    <div class="resume">
+
+
+      <!-- ── EXPERIENCE ──────────────────────────────────────────────
+           HOW TO ADD A NEW EXPERIENCE ENTRY:
+           Copy everything from "< !-- EXPERIENCE ENTRY -->" to
+           "< !-- END EXPERIENCE ENTRY -->" and paste it below.
+           Then change the title, date, organisation, and bullet points.
+           ──────────────────────────────────────────────────────────── -->
+      <div class="resume-section">
+        <div class="sh">Experience</div>
+
+        <!-- EXPERIENCE ENTRY -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Head Boy (Valedictorian)</span>  <!-- Job title -->
+            <span class="entry-date">2024 – 2025</span>                <!-- Dates -->
+          </div>
+          <div class="entry-sub">Kingsford Community School</div>       <!-- Organisation -->
+          <div class="entry-desc">
+            <ul>
+              <li>Elected by peers and staff to serve as the senior student representative for the entire school.</li>
+              <li>Led school assemblies, organised key events, and acted as the primary liaison between the student body and senior leadership.</li>
+              <li>Mentored younger students and fostered a positive, inclusive school culture.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END EXPERIENCE ENTRY -->
+
+        <!-- EXPERIENCE ENTRY -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">United Nations Ambassador</span>
+            <span class="entry-date">2023 – Ongoing</span>
+          </div>
+          <div class="entry-sub">United Nations Association – UK</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Represented youth perspectives on global policy issues at a national level.</li>
+              <li>Developed skills in diplomacy, structured debate, and cross-cultural communication.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END EXPERIENCE ENTRY -->
+
+      </div><!-- end Experience section -->
+
+
+      <!-- ── EDUCATION ───────────────────────────────────────────────
+           Same pattern as Experience above. Copy an entry block to add more.
+           ──────────────────────────────────────────────────────────── -->
+      <div class="resume-section">
+        <div class="sh">Education</div>
+
+        <!-- EDUCATION ENTRY -->
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Kingsford Community School</span>
+            <span class="entry-date">2021 – 2026</span>
+          </div>
+          <div class="entry-sub">GCSEs</div>
+          <div class="entry-desc">
+            <ul>
+              <li>Maths – 9</li>
+              <li>English Literature – 7</li>
+              <li>English Language – 7</li>
+              <li>Physics – 9</li>
+              <li>Biology – 9</li>
+              <li>Chemistry – 9</li>
+              <li>Computer Science – 9</li>
+              <li>Mandarin – 9</li>
+              <li>Drama – 9</li>
+              <li>Religious Studies – 9</li>
+              <li>OCR Free Standing Maths Qualification – B</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END EDUCATION ENTRY -->
+
+      </div><!-- end Education section -->
+
+
+      <!-- ── SKILLS ──────────────────────────────────────────────────
+           HOW TO ADD A NEW SKILL:
+           Add a new line:  <span class="skill-tag">Your Skill Here</span>
+           HOW TO REMOVE A SKILL:
+           Delete the whole line with that skill-tag.
+           ──────────────────────────────────────────────────────────── -->
+      <div class="resume-section">
+        <div class="sh">Skills</div>
+        <div class="skills-grid">
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Screenwriting</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Advanced Computer Coding</span>
+          <span class="skill-tag">Time Management</span>
+          <span class="skill-tag">Public Speaking</span>
+          <span class="skill-tag">Scheduling</span>
+          <span class="skill-tag">Advocacy</span>
+          <span class="skill-tag">Event Organisation</span>
+          <!-- ADD MORE SKILLS HERE ↓ -->
+
+        </div>
+      </div><!-- end Skills section -->
+
+
+      <!-- ── EXTRACURRICULAR ─────────────────────────────────────────
+           HOW TO ADD A NEW EXTRACURRICULAR:
+           Copy from "< !-- EXTRA ENTRY -->" to "< !-- END EXTRA ENTRY -->"
+           and paste it below. Then update the title, meta, and description.
+           ──────────────────────────────────────────────────────────── -->
+      <div class="resume-section">
+        <div class="sh">Extracurricular</div>
+
+        <!-- EXTRA ENTRY -->
+        <div class="extra-item">
+          <div class="extra-header">
+            <span class="extra-dot"></span>
+            <span class="extra-title">Westminster Platform + Programme</span>  <!-- Activity name -->
+          </div>
+          <div class="extra-meta">Participant · 2024 – 2025</div>              <!-- Role · Dates -->
+          <div class="extra-desc">Selected to engage in an academic enrichment programme for gifted and talented young people from London's state school sector.</div>
+        </div>
+        <!-- END EXTRA ENTRY -->
+
+        <!-- EXTRA ENTRY -->
+        <div class="extra-item">
+          <div class="extra-header">
+            <span class="extra-dot"></span>
+            <span class="extra-title">Pianist</span>
+          </div>
+          <div class="extra-meta">Pianist · 2014 – Ongoing</div>
+          <div class="extra-desc">Over ten years of dedicated piano study, performing in school and community settings, and achieving a Merit in ABRSM Grade 8.</div>
+        </div>
+        <!-- END EXTRA ENTRY -->
+
+        <!-- EXTRA ENTRY -->
+        <div class="extra-item">
+          <div class="extra-header">
+            <span class="extra-dot"></span>
+            <span class="extra-title">Film &amp; Creative Projects</span>
+          </div>
+          <div class="extra-meta">Director · Writer · Actor · Ongoing</div>
+          <div class="extra-desc">Actively developing short films, scripts, and creative work — driven by a desire to tell stories that resonate and leave a lasting impression.</div>
+        </div>
+        <!-- END EXTRA ENTRY -->
+
+        <!-- ADD MORE EXTRACURRICULARS HERE ↓ -->
+
+      </div><!-- end Extracurricular section -->
+
+
+    </div><!-- end .resume -->
+
+    <footer>© 2026 Pijus Okun</footer>
+  </div><!-- end #view-about -->
+
+
+  <!-- ╔═════════════════════════════════════════════════════════════════╗
+       ║                        WORKS PAGE                              ║
+       ╚═════════════════════════════════════════════════════════════════╝
+
+       HOW TO ADD A PROJECT:
+       Copy from "PROJECT ENTRY" to "END PROJECT ENTRY" and paste before
+       the "ADD MORE PROJECTS HERE" comment. Fill in the details.
+
+       HOW TO LINK A PDF SCRIPT:
+         href="scripts/my-script.pdf"  ← put the file in a "scripts" folder
+
+       HOW TO LINK A YOUTUBE VIDEO:
+         href="https://www.youtube.com/watch?v=XXXXXXXXXXX"
+
+       When you have projects, DELETE the "coming-soon" block entirely.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="view" id="view-works">
+    <div class="sh">Works</div>
+
+    <!-- ─────────────────────────────────────────────────────────────────
+         WHILE YOU HAVE NO PROJECTS YET: the "coming soon" placeholder shows.
+         Once you add your first PROJECT ENTRY below, delete these 7 lines:
+         ───────────────────────────────────────────────────────────────── -->
+    <div class="coming-soon">
+      <div class="coming-soon-icon">🎬</div>
+      <h3>Projects coming soon.</h3>
+      <p>I'm currently working on a number of film and creative projects. Check back soon — or get in touch if you'd like to collaborate.</p>
+    </div>
+
+
+    <!-- PROJECT ENTRY ─────────────────────────────────────────────────
+    <a class="project" href="https://www.youtube.com/watch?v=XXXXXXXXXXX" target="_blank">
+      <div class="proj-row">
+        <span class="proj-name">My Short Film Title</span>
+        <span class="proj-tag">Short Film</span>
+      </div>
+      <p class="proj-desc">
+        A brief description of your project — what it's about, what role you
+        played, when it was made, or why it matters to you.
+      </p>
+      <div class="proj-links">
+
+        YOUTUBE BUTTON — replace the YouTube link with your real video link:
+        <a class="proj-link-btn" href="https://www.youtube.com/watch?v=XXXXXXXXXXX" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Watch on YouTube
+        </a>
+
+        PDF SCRIPT BUTTON — save your PDF as scripts/filmtitle.pdf:
+        <a class="proj-link-btn" href="scripts/filmtitle.pdf" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Read Script (PDF)
+        </a>
+
+        ANY OTHER LINK — e.g. Instagram, IMDb, a website:
+        <a class="proj-link-btn" href="https://example.com" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View on Instagram
+        </a>
+
+      </div>
+    </a>
+    END PROJECT ENTRY ─────────────────────────────────────────────────── -->
+
+
+    <!-- ADD MORE PROJECTS HERE ↓ (paste copied PROJECT ENTRY blocks) -->
+
+
+    <footer>© 2026 Pijus Okun</footer>
+  </div><!-- end #view-works -->
+
+
+  <!-- ╔═════════════════════════════════════════════════════════════════╗
+       ║                      CONTACT PAGE                              ║
+       ╚═════════════════════════════════════════════════════════════════╝ -->
+  <div class="view" id="view-contact">
+    <div class="contact-section">
+      <h2>Let's talk.</h2>
+      <p class="sub">Whether you're working on something you think I'd be right for, want to collaborate, or just want to connect — I'd love to hear from you.</p>
+
+      <!-- Contact form – this opens the visitor's email app with a pre-filled message -->
+      <div class="form" id="contactForm">
+        <div class="field">
+          <label for="cname">Name</label>
+          <input type="text" id="cname" placeholder="Your name" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="cemail">Email</label>
+          <input type="email" id="cemail" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="cmessage">Message</label>
+          <textarea id="cmessage" placeholder="What's on your mind?"></textarea>
+        </div>
+        <button class="send-btn" onclick="handleSend()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send message
+        </button>
+        <p class="form-note">This opens your email client with your message pre-filled.</p>
+      </div>
+
+      <div class="confirm" id="confirm">
+        <div class="confirm-icon">✉️</div>
+        <h3>Your email client is ready.</h3>
+        <p>A new email has been prepared with your message. Hit send whenever you're ready — I look forward to hearing from you.</p>
+      </div>
+
+      <!-- ── ALSO REACHABLE VIA ───────────────────────────────────────
+           Add more contact links here (LinkedIn, Instagram, IMDb, etc.)
+           Just copy one of the <a class="pill"> blocks and change the
+           href and label text.
+           ──────────────────────────────────────────────────────────── -->
+      <div class="also">
+        <div class="sh">Also reachable via</div>
+        <div class="also-links">
+
+          <!-- Email pill -->
+          <a class="pill" href="mailto:Pijusokun@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Pijusokun@gmail.com
+          </a>
+
+          <!-- LinkedIn pill – replace # with your LinkedIn URL -->
+          <!-- <a class="pill" href="https://linkedin.com/in/yourname" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a> -->
+
+          <!-- Instagram pill – replace # with your Instagram URL -->
+          <!-- <a class="pill" href="https://instagram.com/yourhandle" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a> -->
+
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2026 Pijus Okun</footer>
+  </div><!-- end #view-contact -->
+
+
+</div><!-- end .page -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     JAVASCRIPT — you don't need to edit anything below here.
+     ═══════════════════════════════════════════════════════════════════ -->
+<script>
+  /* Switches between pages (Home / About / Works / Contact) */
+  function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    const navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* Handles the contact form – opens the user's email app */
+  function handleSend() {
+    const name    = document.getElementById('cname').value.trim();
+    const email   = document.getElementById('cemail').value.trim();
+    const message = document.getElementById('cmessage').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in all fields before sending.');
+      return;
+    }
+    const to      = 'Pijusokun@gmail.com'; /* ← change this to your email */
+    const subject = encodeURIComponent('Message from ' + name + ' via pijusokun.com');
+    const body    = encodeURIComponent(
+      'Hi Pijus,\n\nYou have a new message:\n\nName: ' + name +
+      '\nEmail: ' + email + '\n\nMessage:\n' + message
+    );
+    window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    document.getElementById('contactForm').style.opacity = '0.4';
+    document.getElementById('contactForm').style.pointerEvents = 'none';
+    document.getElementById('confirm').classList.add('show');
+  }
+</script>
+</body>
+</html>
