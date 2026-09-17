@@ -95,6 +95,154 @@
     .coming-soon h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 10px; }
     .coming-soon p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.7; max-width: 360px; margin: 0 auto; }
 
+    /* ── Articles page ──────────────────────────────────────────────────
+       Article listings use the same visual language as the Works page.
+       Individual articles are separate HTML files in the /articles folder.
+       ──────────────────────────────────────────────────────────────────── */
+    .articles-intro {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 18px 0 34px;
+    }
+    .article-list { margin-top: 4px; }
+    .article-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      transition: padding-left 0.2s ease;
+    }
+    .article-card::after {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 0 3px 3px 0;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.22s ease;
+    }
+    .article-card:hover { padding-left: 14px; }
+    .article-card:hover::after { transform: scaleY(1); }
+    .article-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 7px;
+    }
+    .article-meta {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-bottom: 9px;
+    }
+    .article-excerpt {
+      font-size: 0.925rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    /* ── Individual article pages ───────────────────────────────────────
+       These styles are also included in each article template.
+       ──────────────────────────────────────────────────────────────────── */
+    .article-page { max-width: 700px; margin: 0 auto; }
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-decoration: none;
+      margin-bottom: 54px;
+      transition: color 0.15s;
+    }
+    .article-back:hover { color: var(--ink); }
+    .article-back svg { width: 13px; height: 13px; }
+    .article-header { margin-bottom: 48px; }
+    .article-header h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+    .article-header .article-date {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+    .article-lede {
+      font-size: 1.08rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      margin-top: 24px;
+      max-width: 590px;
+    }
+    .article-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+    .article-body p { margin-bottom: 25px; }
+    .article-body h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      margin: 48px 0 18px;
+    }
+    .article-body h3 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin: 36px 0 12px;
+    }
+    .article-body strong { font-weight: 500; }
+    .article-body em { font-style: italic; }
+    .article-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .article-body ul,
+    .article-body ol {
+      margin: 0 0 25px 22px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: 34px 0;
+      color: var(--ink-muted);
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .article-body hr {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 46px 0;
+    }
+    .article-body img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin: 34px 0;
+    }
+    .article-footer {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
     /* ── About page: profile card ── */
     .profile-card { display: flex; align-items: center; gap: 28px; margin-bottom: 40px; }
     .avatar-circle { width: 96px; height: 96px; border-radius: 50%; background: var(--accent-light); border: 2.5px solid var(--accent); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -185,6 +333,7 @@
       <a onclick="showView('home')"    class="active" id="nav-home">Home</a>
       <a onclick="showView('about')"   id="nav-about">About</a>
       <a onclick="showView('works')"   id="nav-works">Works</a>
+      <a onclick="showView('articles')" id="nav-articles">Articles</a>
       <a onclick="showView('contact')" id="nav-contact">Contact</a>
     </div>
   </nav>
@@ -538,6 +687,60 @@
   </div><!-- end #view-works -->
 
 
+
+  <!-- ╔═════════════════════════════════════════════════════════════════╗
+       ║                       ARTICLES PAGE                            ║
+       ╚═════════════════════════════════════════════════════════════════╝
+
+       HOW TO ADD A NEW ARTICLE:
+       1. Copy the "article-template.html" file in the /articles folder.
+       2. Rename the copy, e.g. "my-new-article.html".
+       3. Change the clearly marked title, date, description, and article text.
+       4. Add a new ARTICLE ENTRY below, replacing the example details.
+       5. Commit/push both files to GitHub.
+
+       The article itself lives in its own HTML file so every article has
+       its own shareable URL, e.g. /articles/my-new-article.html.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="view" id="view-articles">
+
+    <!-- ── ARTICLES PAGE INTRODUCTION ───────────────────────────────────
+         Change the text below if you ever want to change this introduction.
+         ──────────────────────────────────────────────────────────────── -->
+    <div class="sh">Articles</div>
+    <p class="articles-intro">
+      Here you can view existing articles that I've written during my spare time.
+    </p>
+
+    <div class="article-list">
+
+      <!-- ARTICLE ENTRY ─────────────────────────────────────────────────
+           HOW TO ADD AN ARTICLE TO THIS LIST:
+           Copy this entire ARTICLE ENTRY block and paste it below.
+           Then change:
+             1. The href to match your article filename.
+             2. The title.
+             3. The date.
+             4. The short description.
+           ─────────────────────────────────────────────────────────────── -->
+      <a class="article-card" href="articles/article-template.html">
+        <div class="article-title">Your First Article</div>
+        <div class="article-meta">17 September 2026</div>
+        <p class="article-excerpt">
+          This is an example article entry. Replace this title, date, and
+          description when you publish your first article.
+        </p>
+      </a>
+      <!-- END ARTICLE ENTRY -->
+
+      <!-- ADD MORE ARTICLES HERE ↓
+           Copy the ARTICLE ENTRY block above and paste it here. -->
+
+    </div>
+
+    <footer>© 2026 Pijus Okunevicius</footer>
+  </div><!-- end #view-articles -->
+
   <!-- ╔═════════════════════════════════════════════════════════════════╗
        ║                      CONTACT PAGE                              ║
        ╚═════════════════════════════════════════════════════════════════╝ -->
@@ -614,7 +817,7 @@
      JAVASCRIPT — you don't need to edit anything below here.
      ═══════════════════════════════════════════════════════════════════ -->
 <script>
-  /* Switches between pages (Home / About / Works / Contact) */
+  /* Switches between pages (Home / About / Works / Articles / Contact) */
   function showView(name) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -622,6 +825,12 @@
     const navEl = document.getElementById('nav-' + name);
     if (navEl) navEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* Opens the correct section when returning from an individual article. */
+  const requestedView = window.location.hash.replace('#', '');
+  if (['home', 'about', 'works', 'articles', 'contact'].includes(requestedView)) {
+    showView(requestedView);
   }
 
   /* Handles the contact form – opens the user's email app */
