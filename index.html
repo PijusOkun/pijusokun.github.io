@@ -835,9 +835,17 @@
 
   /* Opens the correct section when returning from an individual article. */
   const requestedView = window.location.hash.replace('#', '');
-  if (['home', 'about', 'works', 'articles', 'contact'].includes(requestedView)) {
-    showView(requestedView);
-  }
+
+if (['home', 'about', 'works', 'articles', 'contact'].includes(requestedView)) {
+  showView(requestedView);
+
+  /* Removes #articles and index.html from the address bar */
+  window.history.replaceState(
+    null,
+    '',
+    window.location.pathname.replace(/index\.html$/, '')
+  );
+}
 
   /* Handles the contact form – opens the user's email app */
   function handleSend() {
