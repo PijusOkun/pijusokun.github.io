@@ -389,8 +389,8 @@
     .paper-mark,.paper-foot { position:relative; z-index:1; font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; line-height:1.6; }
     .paper-mark small { font-size:.6rem; }.paper-title { position:relative; z-index:1; font:2.1rem/.98 var(--serif); letter-spacing:-.035em; }
     .edit-note { margin:32px 0 0; color:var(--ink-muted); font-size:.83rem; }.edit-note span { color:var(--accent); margin-right:7px; }
-    .reveal { opacity:0; transform:translateY(26px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1); }
-    .reveal.is-visible { opacity:1; transform:translateY(0); }
+    .reveal { opacity:0; transform:translate3d(0,var(--reveal-offset,26px),0); transition:opacity .72s ease,transform .78s cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity:1; transform:translate3d(0,0,0); }
     a:focus-visible,button:focus-visible,.pill:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
     @media(max-width:760px) { .page{padding:22px 22px 72px} nav{top:8px;margin-bottom:65px;padding:9px 8px} .nav-links{gap:0} .nav-links a{padding:0 9px;font-size:.77rem} .work-featured{grid-template-columns:1fr} .film-frame{min-height:0} .work-copy,.work-featured .work-copy{padding:25px} .hero{padding-top:20px} }
     @media(max-width:540px) { .page{padding:15px 17px 58px} nav{align-items:flex-start;flex-direction:column;gap:8px;border-radius:14px} .nav-links{width:100%;justify-content:space-between} .nav-links a{padding:0 8px;font-size:.73rem} .hero h1{font-size:clamp(3.2rem,15vw,5rem)} .hero:after{right:0;top:10%;font-size:45vw} .work-grid{grid-template-columns:1fr;gap:18px} .work-featured{grid-column:auto} .script-art{min-height:220px} .profile-card{flex-direction:row;align-items:center;padding:18px}.avatar-circle,.avatar-img{width:76px;height:76px} .entry-header{flex-direction:column;gap:2px} .contact-section{padding:25px 20px;border-radius:20px} }
@@ -404,11 +404,11 @@
     body.theme-about .resume-section > .sh { position:sticky; top:94px; z-index:2; padding:14px 16px; margin:0 0 12px; border:1px solid rgba(255,255,255,.7); border-radius:12px; background:rgba(246,243,237,.86); backdrop-filter:blur(12px); }
     body.theme-about .entry { perspective:900px; }
     body.theme-about .entry:hover { transform:translateY(-3px); box-shadow:0 16px 35px rgba(49,58,45,.08); }
-    body.theme-about .about-reveal { transform:translateY(32px) scale(.985); }
+    body.theme-about .about-reveal { transform:translate3d(0,var(--reveal-offset,32px),0) scale(.985); }
     body.theme-about .about-reveal.is-visible { transform:translateY(0) scale(1); }
-    body.theme-about .profile-card.about-reveal { transform:translateY(24px) rotateX(2deg); }
+    body.theme-about .profile-card.about-reveal { transform:translate3d(0,var(--reveal-offset,24px),0) rotateX(2deg); }
     body.theme-about .profile-card.about-reveal.is-visible { transform:translateY(0) rotateX(0); }
-    @media(prefers-reduced-motion:reduce) { body.theme-about .avatar-circle { animation:none; } body.theme-about .resume-section > .sh { position:static; } }
+    @media(prefers-reduced-motion:reduce) { body.theme-about .avatar-circle { animation:none; } body.theme-about .resume-section > .sh { position:static; } body.theme-about .about-reveal, body.theme-about .profile-card.about-reveal { opacity:1; transform:none; } }
 
     @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important} .reveal{opacity:1;transform:none} }
 
@@ -754,11 +754,8 @@
 
       <!-- ADD A SCRIPT: Duplicate this card; update its title, description and scripts/ PDF path. -->
       <article class="work-card script-card reveal" data-tilt>
-        <div class="script-art art-lilac" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>01</small></span><span class="paper-title">Maintenance<br>Required</span><span class="paper-foot">A screenplay</span></div>
         <div class="script-art art-lilac" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>01</small></span><span class="paper-title">Maintenance<br>Required</span></div>
         <div class="work-copy">
-          <div class="work-meta"><span>Screenplay</span><span>02 / 03</span></div>
-          <h2>Maintenance Required</h2>
           <div class="work-meta"><span>02 / 03</span></div>
           <p>A man furious at everyone slowing him down through the nightlife chaos will do anything to catch the last train out of London.</p>
           <a class="text-link" href="scripts/Maintenance_Required.pdf" target="_blank" rel="noopener">Read script (PDF) <span>↗</span></a>
@@ -767,11 +764,8 @@
 
       <!-- ADD A SCRIPT: Keep the PDF inside scripts/ and update only the href filename. -->
       <article class="work-card script-card reveal" data-tilt>
-        <div class="script-art art-peach" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>02</small></span><span class="paper-title">The Waiting<br>Room Interview</span><span class="paper-foot">A screenplay</span></div>
         <div class="script-art art-peach" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>02</small></span><span class="paper-title">The Waiting<br>Room Interview</span></div>
         <div class="work-copy">
-          <div class="work-meta"><span>Screenplay</span><span>03 / 03</span></div>
-          <h2>The Waiting Room Interview</h2>
           <div class="work-meta"><span>03 / 03</span></div>
           <p>A routine interview preparation spirals into something far stranger when a man meets an unexpected companion in the waiting room.</p>
           <a class="text-link" href="scripts/The_Waiting_Room_Interview.pdf" target="_blank" rel="noopener">Read script (PDF) <span>↗</span></a>
@@ -930,7 +924,6 @@
     const navEl = document.getElementById('nav-' + name);
     if (navEl) navEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    revealVisibleItems();
     requestAnimationFrame(revealVisibleItems);
   }
 
@@ -966,15 +959,32 @@
   /* Gentle scroll reveal; if unsupported or motion is reduced, everything stays visible. */
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let revealObserver;
+  let lastScrollY = window.scrollY;
+  let scrollDirection = 'down';
+  window.addEventListener('scroll', () => {
+    const currentY = window.scrollY;
+    if (Math.abs(currentY - lastScrollY) > 2) scrollDirection = currentY < lastScrollY ? 'up' : 'down';
+    lastScrollY = currentY;
+  }, { passive: true });
+
   function revealVisibleItems() {
-    const items = document.querySelectorAll('.view.active .reveal:not(.is-visible)');
+    const items = document.querySelectorAll('.view.active .reveal');
     if (reducedMotion || !('IntersectionObserver' in window)) {
       items.forEach(item => item.classList.add('is-visible'));
       return;
     }
     if (!revealObserver) revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
-    }), { threshold: 0.12 });
+      const item = entry.target;
+      if (entry.isIntersecting) {
+        /* Enter from below while scrolling down and from above while scrolling up. */
+        item.style.setProperty('--reveal-offset', scrollDirection === 'up' ? '-28px' : '28px');
+        item.classList.add('is-visible');
+      } else {
+        /* Leave in the opposite direction so the full motion reverses on the way back. */
+        item.style.setProperty('--reveal-offset', scrollDirection === 'up' ? '28px' : '-28px');
+        item.classList.remove('is-visible');
+      }
+    }), { threshold: 0.01, rootMargin: '-8% 0px -8% 0px' });
     items.forEach(item => revealObserver.observe(item));
   }
   revealVisibleItems();
