@@ -377,6 +377,7 @@
     .film-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
     .work-copy { padding:27px 30px 32px; }
     .work-featured .work-copy { display:flex; flex-direction:column; justify-content:center; padding:clamp(28px,5vw,64px); }
+    .script-card .work-meta { justify-content:flex-end; }
     .work-meta { display:flex; justify-content:space-between; gap:12px; color:var(--accent); font-size:.69rem; letter-spacing:.12em; text-transform:uppercase; margin-bottom:17px; }
     .work-copy h2 { font:clamp(1.5rem,3vw,2.35rem)/1.08 var(--serif); letter-spacing:-.025em; margin-bottom:14px; }
     .work-copy p { color:var(--ink-muted); font-size:.9rem; line-height:1.75; }
@@ -393,6 +394,22 @@
     a:focus-visible,button:focus-visible,.pill:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
     @media(max-width:760px) { .page{padding:22px 22px 72px} nav{top:8px;margin-bottom:65px;padding:9px 8px} .nav-links{gap:0} .nav-links a{padding:0 9px;font-size:.77rem} .work-featured{grid-template-columns:1fr} .film-frame{min-height:0} .work-copy,.work-featured .work-copy{padding:25px} .hero{padding-top:20px} }
     @media(max-width:540px) { .page{padding:15px 17px 58px} nav{align-items:flex-start;flex-direction:column;gap:8px;border-radius:14px} .nav-links{width:100%;justify-content:space-between} .nav-links a{padding:0 8px;font-size:.73rem} .hero h1{font-size:clamp(3.2rem,15vw,5rem)} .hero:after{right:0;top:10%;font-size:45vw} .work-grid{grid-template-columns:1fr;gap:18px} .work-featured{grid-column:auto} .script-art{min-height:220px} .profile-card{flex-direction:row;align-items:center;padding:18px}.avatar-circle,.avatar-img{width:76px;height:76px} .entry-header{flex-direction:column;gap:2px} .contact-section{padding:25px 20px;border-radius:20px} }
+
+    /* About page: each story/resume item enters as it reaches the viewport. */
+    body.theme-about .profile-card { position:relative; overflow:hidden; transform-style:preserve-3d; }
+    body.theme-about .profile-card:after { content:''; position:absolute; width:220px; height:220px; right:-82px; top:-116px; border:1px solid color-mix(in srgb,var(--accent) 22%,transparent); border-radius:50%; box-shadow:0 0 0 22px color-mix(in srgb,var(--accent) 5%,transparent),0 0 0 45px color-mix(in srgb,var(--accent) 4%,transparent); pointer-events:none; }
+    body.theme-about .avatar-circle { position:relative; z-index:1; animation:portraitFloat 6s ease-in-out infinite; }
+    @keyframes portraitFloat { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-6px) rotate(2deg)} }
+    body.theme-about .about-bio p { max-width:660px; font-size:1.04rem; }
+    body.theme-about .resume-section > .sh { position:sticky; top:94px; z-index:2; padding:14px 16px; margin:0 0 12px; border:1px solid rgba(255,255,255,.7); border-radius:12px; background:rgba(246,243,237,.86); backdrop-filter:blur(12px); }
+    body.theme-about .entry { perspective:900px; }
+    body.theme-about .entry:hover { transform:translateY(-3px); box-shadow:0 16px 35px rgba(49,58,45,.08); }
+    body.theme-about .about-reveal { transform:translateY(32px) scale(.985); }
+    body.theme-about .about-reveal.is-visible { transform:translateY(0) scale(1); }
+    body.theme-about .profile-card.about-reveal { transform:translateY(24px) rotateX(2deg); }
+    body.theme-about .profile-card.about-reveal.is-visible { transform:translateY(0) rotateX(0); }
+    @media(prefers-reduced-motion:reduce) { body.theme-about .avatar-circle { animation:none; } body.theme-about .resume-section > .sh { position:static; } }
+
     @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important} .reveal{opacity:1;transform:none} }
 
   </style>
@@ -738,9 +755,11 @@
       <!-- ADD A SCRIPT: Duplicate this card; update its title, description and scripts/ PDF path. -->
       <article class="work-card script-card reveal" data-tilt>
         <div class="script-art art-lilac" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>01</small></span><span class="paper-title">Maintenance<br>Required</span><span class="paper-foot">A screenplay</span></div>
+        <div class="script-art art-lilac" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>01</small></span><span class="paper-title">Maintenance<br>Required</span></div>
         <div class="work-copy">
           <div class="work-meta"><span>Screenplay</span><span>02 / 03</span></div>
           <h2>Maintenance Required</h2>
+          <div class="work-meta"><span>02 / 03</span></div>
           <p>A man furious at everyone slowing him down through the nightlife chaos will do anything to catch the last train out of London.</p>
           <a class="text-link" href="scripts/Maintenance_Required.pdf" target="_blank" rel="noopener">Read script (PDF) <span>↗</span></a>
         </div>
@@ -749,9 +768,11 @@
       <!-- ADD A SCRIPT: Keep the PDF inside scripts/ and update only the href filename. -->
       <article class="work-card script-card reveal" data-tilt>
         <div class="script-art art-peach" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>02</small></span><span class="paper-title">The Waiting<br>Room Interview</span><span class="paper-foot">A screenplay</span></div>
+        <div class="script-art art-peach" aria-hidden="true"><span class="paper-mark">SCRIPT<br><small>02</small></span><span class="paper-title">The Waiting<br>Room Interview</span></div>
         <div class="work-copy">
           <div class="work-meta"><span>Screenplay</span><span>03 / 03</span></div>
           <h2>The Waiting Room Interview</h2>
+          <div class="work-meta"><span>03 / 03</span></div>
           <p>A routine interview preparation spirals into something far stranger when a man meets an unexpected companion in the waiting room.</p>
           <a class="text-link" href="scripts/The_Waiting_Room_Interview.pdf" target="_blank" rel="noopener">Read script (PDF) <span>↗</span></a>
         </div>
@@ -910,6 +931,7 @@
     if (navEl) navEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     revealVisibleItems();
+    requestAnimationFrame(revealVisibleItems);
   }
 
   const requestedView = window.location.hash.replace('#', '');
@@ -931,6 +953,14 @@
       player.allowFullscreen = true;
       frame.replaceChildren(player);
     });
+  });
+
+  /* Turn the About profile and résumé into sequential scroll-reveal story beats. */
+  const aboutBeats = document.querySelectorAll('#view-about .profile-card, #view-about .about-bio p, #view-about .resume-section, #view-about .entry, #view-about .skills-grid, #view-about .extra-item');
+  aboutBeats.forEach((item, index) => {
+    item.classList.add('reveal', 'about-reveal');
+    const siblings = item.parentElement ? Array.from(item.parentElement.children).filter(child => child.matches('.entry, .extra-item, p')) : [];
+    if (siblings.length > 1) item.style.transitionDelay = (siblings.indexOf(item) * 90) + 'ms';
   });
 
   /* Gentle scroll reveal; if unsupported or motion is reduced, everything stays visible. */
